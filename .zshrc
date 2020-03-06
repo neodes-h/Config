@@ -8,7 +8,8 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
+# ZSH_THEME="fishy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -33,7 +34,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -65,16 +66,21 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   svn
+  z
+  extract
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
+
+bindkey ',' autosuggest-accept
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -99,9 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c='clear'
 alias t='tmux'
-alias ll='ls -l'
+alias ll='ls -larth'
 alias la='ls -al'
 alias v='vim'
 alias m='more'
-alias webstorm='~/Downloads/WebStorm-182.4129.32/bin/webstorm.sh &'
-alias vb='virtualbox &'
+alias grep='grep --color=auto'
+
+export TERM="screen-256color"
+export PATH=/home/hhao/.cargo/bin:/home/hhao/bin:/usr/local/bin:/home/hhao/bin:/home/hhao/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
