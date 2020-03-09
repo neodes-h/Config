@@ -44,8 +44,6 @@ set cursorline
 set scrolloff=5
 
 set encoding=UTF-8
-set nolist
-set listchars=tab:>-,trail:-
 "Add a little margin to the left
 set foldcolumn=1
 set nofoldenable
@@ -74,6 +72,9 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'leafgarland/typescript-vim'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_confirm_extra_conf = 0
@@ -252,27 +253,6 @@ function! s:json()
     %!python -m json.tool
 endfunction	
 
-""""""""""""
-"Javascript"
-""""""""""""
-
-" au FileType javascript call JavaScriptFold()
-" au FileType javascript setl fen
-" au FileType javascript setl nocindent
-"
-" function! JavaScriptFold()
-"     setl foldmethod=syntax
-"     setl foldlevelstart=1
-"     syn region foldBraces start=\{\ end=\}\ transparent fold keepend extend
-"
-"     function! FoldText()
-"         return substitute(getline(v:foldstart),'{.*','{...}','')
-"     endfunction
-"     setl foldtext=FoldText()
-" endfunction
-
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " switch between current tab and the last-active tab
 """""""""""""""""""""""""""""""""""""""""""""""""""" 
@@ -290,6 +270,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
+nnoremap - $
 
 
 function TogglePaste()
@@ -318,3 +299,15 @@ command Q execute "quit!"
 command W execute "write!"
 command QQ execute "quitall"
 nmap <leader>w :w!<cr>
+
+" disappear highlight of searching results 
+map <silent> <leader><CR> :noh<CR>
+" open a new tab with the current buffer's path
+" map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+map <leader>te :tabedit<cr> 
+
+" change the working directory to the directory of the opening buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" quickly insert parenthesis/brackets/etc
+inoremap {<cr> {<esc>o}<esc>O
