@@ -14,6 +14,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
+Plug 'mattn/emmet-vim'
 
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -295,7 +296,7 @@ set smarttab
 set cindent
 
 " always use spaces instead of tabs characters
-set expandtab;
+set expandtab
 
 """"""""""""
 " Remapping"
