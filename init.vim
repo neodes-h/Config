@@ -163,9 +163,7 @@ let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%
 "autocmd vimenter * NERDTree
 
 "close nerdtree automaticlly when vim closes
-autocmd bufenter * if(winnr("$")==1&&exists("b:NERDTreeType")&&b:NERDTreeType=="primary")|q|endif
-
-
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "shortcut for toggling ctrl+n
 map<silent><C-n> :NERDTreeToggle<CR>
 
@@ -346,3 +344,11 @@ map <leader>te :tabedit<cr>
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" switch between current tab and the last-active tab
+"""""""""""""""""""""""""""""""""""""""""""""""""""" 
+if !exists('g:lasttab')
+      let g:lasttab = 1
+  endif
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()

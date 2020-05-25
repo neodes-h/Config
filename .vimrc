@@ -120,8 +120,7 @@ let g:cpp_concepts_highlight = 1
 "autocmd vimenter * NERDTree
 
 "close nerdtree automaticlly when vim closes
-autocmd bufenter * if(winnr("$")==1&&exists("b:NERDTreeType")&&b:NERDTreeType=="primary")|q|endif
-
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "shortcut for toggling ctrl+n
 map<silent><C-n> :NERDTreeToggle<CR>
