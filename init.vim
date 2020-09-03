@@ -175,7 +175,7 @@ let NERDTreeDirArrows=0
 "show bookmarks
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
-let NERDTreeWinSize=25
+let NERDTreeWinSize=45
 
 """""""""""""""
 " NERDCommenter
