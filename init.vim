@@ -293,6 +293,10 @@ set tabstop=2
 set smarttab
 set cindent
 
+set linebreak
+
+set wrap
+
 " always use spaces instead of tabs characters
 set expandtab
 
@@ -342,6 +346,10 @@ map <leader>te :tabedit<cr>
 
 " change the working directory to the directory of the opening buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+
+"select all
+nnoremap <leader><C-a> ggVG
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
