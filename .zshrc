@@ -1,5 +1,5 @@
-#If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# If you come from bash you might have to change your $PATH.
+export PATH=/usr/local/lib/nodejs/bin:$HOME/.cargo/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -8,8 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
-# ZSH_THEME="fishy"
+ZSH_THEME="af-magic"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -27,8 +26,14 @@ ZSH_THEME="agnoster"
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -53,7 +58,7 @@ ZSH_THEME="agnoster"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -64,23 +69,23 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  svn
-  z
-  extract
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-bindkey ',' autosuggest-accept
-
+	git
+	zsh-autosuggestions
+	zsh-syntax-highlighting
+	z
+	extract
+	)
+bindkey ',,' autosuggest-accept 
 source $ZSH/oh-my-zsh.sh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#3a3a3a"
+
 
 # User configuration
+export DEFAULT_USER="Henry"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -92,9 +97,6 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -103,15 +105,26 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias c='clear'
-alias t='tmux'
-alias ll='ls -larth'
-alias la='ls -al'
-alias v='vim'
-alias m='more'
-alias grep='grep --color=auto'
+alias c="clear"
+alias t="tmux"
+alias ls="exa"
+alias ll="ls -l"
+alias la="ls -a"
+alias m="more"
+alias cp="cp -i"
+alias grep="rg --color=auto"
+alias -s gz="tar -zxvf"
+alias -s tgz="tar -zxvf"
+alias -s zip="unzip"
+alias -s bz2="tar -sjvf"
+alias nim="nvim"
+alias vim="nim"
+alias vi="nim"
+alias vpn_cli="/usr/local/bin/forticlientsslvpn/start_vpn.sh"
 
-export TERM="screen-256color"
-export PATH=/home/hhao/.cargo/bin:/home/hhao/bin:/usr/local/bin:/home/hhao/bin:/home/hhao/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export TERM=xterm-256color
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --no-ignore --exclude .git'
+export PKG_CONFIG_PATH=/snap/gnome-3-34-1804/36/usr/lib/x86_64-linux-gnu/pkgconfig
+export XDG_CONFIG_HOME=/home/hhao/.config
+export EDITOR=nvim

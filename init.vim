@@ -6,6 +6,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/NERDTree'
 Plug 'junegunn/fzf'
 Plug 'preservim/nerdcommenter'
+Plug 'luochen1990/rainbow'
 
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-surround'
@@ -15,6 +16,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
+Plug 'justinmk/vim-sneak'
 
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -46,7 +48,7 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable " delays and poor user experience.
 set updatetime=300
-
+set timeoutlen=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -152,9 +154,18 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+
+
+"""" coc-git
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gc <Plug>(coc-git-commit)
+nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
+
+
 """""""""
 " airline
 """""""""
+let g:airline_powline_fonts = 1
 let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v %{strftime("%H:%M")}'
 
 """""""""
@@ -166,6 +177,7 @@ let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "shortcut for toggling ctrl+n
 map<silent><C-n> :NERDTreeToggle<CR>
+map<silent>nf :NERDTreeFind<CR>
 
 
 let NERDChrismas=1
@@ -176,6 +188,33 @@ let NERDTreeDirArrows=0
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
 let NERDTreeWinSize=45
+
+
+""""""""""""""""""""
+" Rainbow parenthese
+""""""""""""""""""""
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
 
 """""""""""""""
 " NERDCommenter
@@ -232,7 +271,7 @@ nmap <C-p> :FZF<CR>
 
 
 """""""""""""""
-"Basi Settings
+"Basic Settings
 """"""""""""""""
 set history=500
 
@@ -297,8 +336,14 @@ set linebreak
 
 set wrap
 
+" show the damn hidden characters
+set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+set list
+
 " always use spaces instead of tabs characters
 set expandtab
+
+let g:rainbow_active = 1
 
 """"""""""""
 " Remapping"
@@ -311,14 +356,7 @@ nnoremap <C-l> <C-W>l
 nnoremap - $
 
 
-function TogglePaste()
-    if &paste
-        set nopaste
-    else
-        set paste
-    endif
-endfunction
-nnoremap <F2> :call TogglePaste()<cr>
+nnoremap <F2> :setlocal paste!<cr>
 
 imap jk <Esc>
 imap kj <Esc>
@@ -333,9 +371,9 @@ map <esc>OF <end>
 cmap <esc>OF <end>
 imap <esc>OF <end>
 
-command Q execute "quit!"
-command W execute "write!"
-command QQ execute "quitall"
+command! Q execute "quit!"
+command! W execute "write!"
+command! QQ execute "quitall"
 nmap <leader>w :w!<cr>
 
 " disappear highlight of searching results 
@@ -351,6 +389,39 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 "select all
 nnoremap <leader><C-a> ggVG
 
+" jump to start and end of the row using H and L
+map H ^
+map L $
+
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Left and right can switch buffers
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
+
+" display buffers and switch
+nnoremap <leader>l :buffers<CR>:buffer<Space>
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <C-^>
+
+" Close current buffer
+map <leader>bd :bd<CR>
+
+" Close all buffers
+map <leader>ba :bufdo bd<CR>
+
+" Create an empty buffer
+map <leader>n :enew<CR>
+
+" Quit the current window
+map <leader>q :bd<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " switch between current tab and the last-active tab
@@ -358,5 +429,10 @@ nnoremap <leader><C-a> ggVG
 if !exists('g:lasttab')
       let g:lasttab = 1
   endif
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+nmap <Leade * let g:lasttab = tabpagenr()
+
+
+"""""""""""
+" vim-sneak
+"""""""""""
+let g:sneak#label = 1
