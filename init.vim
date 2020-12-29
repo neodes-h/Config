@@ -8,7 +8,6 @@ Plug 'junegunn/fzf'
 Plug 'preservim/nerdcommenter'
 Plug 'luochen1990/rainbow'
 
-Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
@@ -17,6 +16,8 @@ Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak'
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
 
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -24,7 +25,6 @@ call plug#end()
 syntax enable
 
 set background=dark
-" colorscheme molokai
 colorscheme gruvbox
 
 
@@ -48,14 +48,14 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable " delays and poor user experience.
 set updatetime=300
-set timeoutlen=300
+set timeoutlen=200
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
+" Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
   set signcolumn=yes
@@ -327,10 +327,14 @@ set iskeyword=@,48-57,_,-,192-255
 
 set ch=2
 
+" set width of tabs
 set shiftwidth=4
+set softtabstop=2
 set tabstop=2
 set smarttab
 set cindent
+" always use spaces instead of tabs characters
+set expandtab
 
 set linebreak
 
@@ -338,10 +342,13 @@ set wrap
 
 " show the damn hidden characters
 set listchars=nbsp:¬,extends:»,precedes:«,trail:•
-set list
+set nolist
 
-" always use spaces instead of tabs characters
-set expandtab
+" make nvim background opaque
+hi! Normal ctermbg=None guibg=None
+hi! NonText ctermbg=None guibg=None guifg=None ctermfg=None
+
+
 
 let g:rainbow_active = 1
 
@@ -418,9 +425,6 @@ map <leader>ba :bufdo bd<CR>
 
 " Create an empty buffer
 map <leader>n :enew<CR>
-
-" Quit the current window
-map <leader>q :bd<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
