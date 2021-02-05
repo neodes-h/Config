@@ -19,6 +19,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 
+Plug 'vimwiki/vimwiki'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -48,7 +49,7 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable " delays and poor user experience.
 set updatetime=300
-set timeoutlen=200
+set timeoutlen=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -361,12 +362,12 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap - $
+nnoremap 0 ^
 
 
 nnoremap <F2> :setlocal paste!<cr>
 
 imap jk <Esc>
-imap kj <Esc>
 map j gj
 map k gk
 
@@ -394,7 +395,7 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 
 "select all
-nnoremap <leader><C-a> ggVG
+nnoremap <C-a> ggVG
 
 " jump to start and end of the row using H and L
 map H ^
@@ -433,10 +434,17 @@ map <leader>n :enew<CR>
 if !exists('g:lasttab')
       let g:lasttab = 1
   endif
-nmap <Leade * let g:lasttab = tabpagenr()
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au tableave * let g:lasttab = tabpagenr()
 
 
 """""""""""
 " vim-sneak
 """""""""""
 let g:sneak#label = 1
+
+""""""""""
+" Vimwiki
+""""""""""
+" auto generate HTML when save wiki file
+au BufWritePost *.wiki Vimwiki2HTML
