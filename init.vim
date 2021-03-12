@@ -3,7 +3,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
-Plug 'scrooloose/NERDTree'
 Plug 'junegunn/fzf'
 Plug 'preservim/nerdcommenter'
 Plug 'luochen1990/rainbow'
@@ -15,7 +14,6 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
-Plug 'justinmk/vim-sneak'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 
@@ -39,8 +37,13 @@ let g:coc_global_extensions = [
 	\ 'coc-eslint',
 	\ 'coc-prettier',
 	\ 'coc-json',
-	\ 'coc-git'
+	\ 'coc-git',
+	\ 'coc-explorer',
+	\ 'coc-rust-analyzer'
 	\ ]
+
+nmap <silent><C-n> :CocCommand explorer<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 set hidden
 
@@ -168,27 +171,6 @@ nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 """""""""
 let g:airline_powline_fonts = 1
 let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v %{strftime("%H:%M")}'
-
-"""""""""
-"NERDTree
-"""""""""
-"autocmd vimenter * NERDTree
-
-"close nerdtree automaticlly when vim closes
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"shortcut for toggling ctrl+n
-map<silent><C-n> :NERDTreeToggle<CR>
-map<silent>nf :NERDTreeFind<CR>
-
-
-let NERDChrismas=1
-let NERDTreeChDirMode=1
-let NERDTreeDirArrows=0
-
-"show bookmarks
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
-let NERDTreeWinSize=45
 
 
 """"""""""""""""""""
@@ -437,11 +419,6 @@ if !exists('g:lasttab')
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au tableave * let g:lasttab = tabpagenr()
 
-
-"""""""""""
-" vim-sneak
-"""""""""""
-let g:sneak#label = 1
 
 """"""""""
 " Vimwiki

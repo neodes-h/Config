@@ -123,7 +123,7 @@ alias vi="nim"
 alias vpn_cli="/usr/local/bin/forticlientsslvpn/start_vpn.sh"
 
 
-# export TERM=xterm-256color
+export TERM=xterm-256color
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --no-ignore --exclude .git'
 export PKG_CONFIG_PATH=/snap/gnome-3-34-1804/36/usr/lib/x86_64-linux-gnu/pkgconfig
 export XDG_CONFIG_HOME=/home/hhao/.config
