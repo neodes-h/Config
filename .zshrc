@@ -75,10 +75,9 @@ plugins=(
 	z
 	extract
 	)
-bindkey ',,' autosuggest-accept 
+bindkey '^N' autosuggest-accept 
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#3a3a3a"
-
 
 # User configuration
 export DEFAULT_USER="Henry"
@@ -120,14 +119,8 @@ alias -s bz2="tar -sjvf"
 alias nim="nvim"
 alias vim="nim"
 alias vi="nim"
-alias vpn_cli="/usr/local/bin/forticlientsslvpn/start_vpn.sh"
 
+if [[ -z "${DISPLAY}" ]] && [[ $XDG_VTNR -eq 1 ]]; then
+    exec startx
+fi
 
-export TERM=xterm-256color
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --no-ignore --exclude .git'
-export PKG_CONFIG_PATH=/snap/gnome-3-34-1804/36/usr/lib/x86_64-linux-gnu/pkgconfig
-export XDG_CONFIG_HOME=/home/hhao/.config
-export EDITOR=nvim
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/"
-export PATH=$PATH:$JAVA_HOME/bin
