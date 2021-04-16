@@ -128,3 +128,6 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --no-ignore --exclude 
 export PKG_CONFIG_PATH=/snap/gnome-3-34-1804/36/usr/lib/x86_64-linux-gnu/pkgconfig
 export XDG_CONFIG_HOME=/home/hhao/.config
 export EDITOR=nvim
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/"
+export PATH=$PATH:$JAVA_HOME/bin

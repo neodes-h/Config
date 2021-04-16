@@ -3,7 +3,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'luochen1990/rainbow'
 
@@ -170,8 +171,35 @@ nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
 " airline
 """""""""
 let g:airline_powline_fonts = 1
+" beautify tab
+let g:airline#extensions#tabline#enabled = 1
+" hide buffer/tab switch button on the top-right corner
+let g:airline#extensions#tabline#show_buffers = 0
+
+" configure how numbers are displayed in tab mode. >
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+" hide close button
+let g:airline#extensions#tabline#show_close_button = 0
+" <leader><num> to jump to <num> tab
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
+
 let g:airline_section_z = '%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v %{strftime("%H:%M")}'
 
+let g:airline_filetype_overrides = {
+      \ 'startify': [ 'Talk is cheap, show me the code!', '🖥️ '],
+      \ 'coc-explorer':  [ 'Exporer', '?' ],
+      \ }
 
 """"""""""""""""""""
 " Rainbow parenthese
@@ -247,10 +275,12 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
 
 map <Space> <Leader>
 map <leader><cr> :noh<cr>
-nmap <C-p> :FZF<CR>
+nmap <C-p> :Files<CR>
 
 
 """""""""""""""
@@ -392,23 +422,8 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " Left and right can switch buffers
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
-
-" display buffers and switch
-nnoremap <leader>l :buffers<CR>:buffer<Space>
-" <leader><leader> toggles between buffers
-nnoremap <leader><leader> <C-^>
-
-" Close current buffer
-map <leader>bd :bd<CR>
-
-" Close all buffers
-map <leader>ba :bufdo bd<CR>
-
-" Create an empty buffer
-map <leader>n :enew<CR>
-
+nnoremap <left> :tabp<CR>
+nnoremap <right> :tabn<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " switch between current tab and the last-active tab
@@ -425,3 +440,8 @@ au tableave * let g:lasttab = tabpagenr()
 """"""""""
 " auto generate HTML when save wiki file
 au BufWritePost *.wiki Vimwiki2HTML
+let g:vimwiki_list = [{
+            \ 'path': '~/vimwiki/',
+            \ 'path_html': '~/vimwiki_html/',
+            \ 'ext': '.wiki',
+            \ }]
